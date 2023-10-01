@@ -196,7 +196,7 @@ class Zlibrary:
     def __getImageData(self, url: str) -> requests.Response.content:
         path = url.split("books")[-1]
         for domain in self.__personalDomains:
-            url = "https://" + domain + "/covers/books" + path
+            url = f"https://{domain}/covers/books{path}"
             res = requests.get(url, headers=self.__headers,
                                cookies=self.__cookies)
             if res.status_code == 200:
@@ -217,7 +217,7 @@ class Zlibrary:
         token = response["file"]["downloadLink"].split("/dtoken/")[-1]
 
         for domain in self.__downloadDomains:
-            dlink = "https://" + domain + "/dtoken/" + token
+            dlink = f"https://{domain}/dtoken/{token}"
             res = requests.get(dlink, headers=self.__headers, cookies=self.__cookies)
             if res.status_code == 200:
                 return filename, res.content
